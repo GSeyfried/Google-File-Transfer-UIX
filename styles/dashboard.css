@@ -1,0 +1,14 @@
+.portal-form input {
+  margin-right: 5px;
+}
+
+.portal-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+.portal-list {
+  padding: 0;
+}

@@ -18,7 +18,12 @@ export default function handler(req, res) {
     res.status(200).json(load());
   } else if (req.method === 'POST') {
     const portals = load();
-    portals.push({ source: req.body.source, target: req.body.target });
+    portals.push({
+      name: req.body.name,
+      source: req.body.source,
+      target: req.body.target,
+      deleteOriginal: Boolean(req.body.deleteOriginal),
+    });
     save(portals);
     res.status(201).json({ ok: true });
   } else {
