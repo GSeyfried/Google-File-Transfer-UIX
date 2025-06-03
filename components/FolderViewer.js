@@ -4,7 +4,10 @@ export default function FolderViewer({ folderId, onClose }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    if (folderId) {
+    if (!folderId) return;
+    if (typeof folderId === 'object') {
+      setData(folderId);
+    } else {
       fetch(`/api/folder?id=${folderId}`).then(r => r.json()).then(setData);
     }
   }, [folderId]);

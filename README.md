@@ -1,6 +1,6 @@
 # Google-File-Transfer-UIX
 
-This project provides a simple Next.js dashboard to manage Google Drive file transfers. Portals map source folders to target folders, can delete originals, and include a manual **Run Now** button. Selecting a folder opens a viewer showing mock contents.
+This project provides a simple Next.js dashboard to manage Google Drive file transfers. Portals map source folders to target folders, include a delete-original toggle, and a manual **Run Now** button. Selecting a portal's "View Source" option shows cached folder contents from the last run.
 
 ## Getting Started
 

@@ -9,9 +9,14 @@ export default function Dashboard() {
   const [form, setForm] = useState({ name: '', source: '', target: '', deleteOriginal: false });
   const [viewerFolder, setViewerFolder] = useState(null);
 
+  const refresh = async () => {
+    const updated = await fetch('/api/portals').then(r => r.json());
+    setPortals(updated);
+  };
+
   useEffect(() => {
     if (status === 'authenticated') {
-      fetch('/api/portals').then(r => r.json()).then(setPortals);
+      refresh();
     }
   }, [status]);
 
@@ -25,8 +30,17 @@ export default function Dashboard() {
       body: JSON.stringify(form),
     });
     setForm({ name: '', source: '', target: '', deleteOriginal: false });
-    const updated = await fetch('/api/portals').then(r => r.json());
-    setPortals(updated);
+    await refresh();
+  };
+
+  const runPortal = async (name) => {
+    await fetch(`/api/portals/${encodeURIComponent(name)}/run`, { method: 'POST' });
+    await refresh();
+  };
+
+  const deletePortal = async (name) => {
+    await fetch(`/api/portals/${encodeURIComponent(name)}`, { method: 'DELETE' });
+    await refresh();
   };
 
   return (
@@ -66,19 +80,21 @@ export default function Dashboard() {
       <ul className="portal-list">
         {portals.map((p, idx) => (
           <li key={idx} className="portal-item">
-            <strong>{p.name}</strong> ({p.source} → {p.target})
-            <label>
-              <input
-                type="checkbox"
-                checked={p.deleteOriginal}
-                readOnly
-              />
-              Delete original
-            </label>
-            <button onClick={() => fetch(`/api/portals/${encodeURIComponent(p.name)}/run`, { method: 'POST' })}>
-              Run Now
-            </button>
-            <button onClick={() => setViewerFolder(p.source)}>View Source</button>
+            <div className="portal-main">
+              <strong>{p.name}</strong>
+              <span className="small">{p.source} → {p.target}</span>
+              {p.lastRun && (
+                <span className="small">Last run: {new Date(p.lastRun).toLocaleString()}</span>
+              )}
+            </div>
+            <div className="portal-actions">
+              <label>
+                <input type="checkbox" checked={p.deleteOriginal} readOnly /> Delete original
+              </label>
+              <button onClick={() => runPortal(p.name)}>Run Now</button>
+              <button onClick={() => setViewerFolder(p.cachedSource || p.source)}>View Source</button>
+              <button onClick={() => deletePortal(p.name)}>Delete</button>
+            </div>
           </li>
         ))}
       </ul>

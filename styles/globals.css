@@ -2,6 +2,11 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
+  background: #f8f8f8;
+}
+
+h1 {
+  margin-top: 0;
 }
 @import "./viewer.css";
 @import "./dashboard.css";

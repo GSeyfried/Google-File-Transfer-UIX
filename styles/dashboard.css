@@ -5,10 +5,43 @@
 .portal-item {
   border: 1px solid #ccc;
   padding: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   list-style: none;
+  border-radius: 4px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.portal-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 .portal-list {
   padding: 0;
+}
+
+.portal-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.portal-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.portal-actions button {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.portal-actions button:hover {
+  background-color: #efefef;
+}
+
+.small {
+  font-size: 0.8em;
+  color: #555;
 }
