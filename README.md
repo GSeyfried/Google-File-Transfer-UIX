@@ -17,3 +17,12 @@ Build for production:
 npm run build
 npm start
 ```
+
+## Environment Variables
+
+Create a `.env.local` file based on the example below and provide your Google OAuth credentials:
+
+```bash
+GOOGLE_CLIENT_ID=your-client-id
+GOOGLE_CLIENT_SECRET=your-client-secret
+```
